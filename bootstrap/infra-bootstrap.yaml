@@ -588,6 +588,9 @@ Resources:
                   kms_key_arn          = null
                   kms_key_id           = null
 
+                  # PostgreSQL Backup (set to false if SCPs block backup vault creation)
+                  postgres_enable_backup      = false
+
                   # EKS Config
                   enable_eks_public_access    = true
                   deploy_inside_vpc           = false

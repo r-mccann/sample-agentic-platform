@@ -91,22 +91,22 @@ output "master_user_secret_kms_key_id" {
 
 output "backup_vault_name" {
   description = "Name of the AWS Backup vault"
-  value       = aws_backup_vault.postgres.name
+  value       = var.enable_backup ? aws_backup_vault.postgres[0].name : null
 }
 
 output "backup_vault_arn" {
   description = "ARN of the AWS Backup vault"
-  value       = aws_backup_vault.postgres.arn
+  value       = var.enable_backup ? aws_backup_vault.postgres[0].arn : null
 }
 
 output "backup_plan_id" {
   description = "ID of the AWS Backup plan"
-  value       = aws_backup_plan.postgres.id
+  value       = var.enable_backup ? aws_backup_plan.postgres[0].id : null
 }
 
 output "backup_plan_arn" {
   description = "ARN of the AWS Backup plan"
-  value       = aws_backup_plan.postgres.arn
+  value       = var.enable_backup ? aws_backup_plan.postgres[0].arn : null
 }
 
 ########################################################
@@ -139,7 +139,7 @@ output "monitoring_role_arn" {
 
 output "backup_role_arn" {
   description = "ARN of the AWS Backup IAM role"
-  value       = aws_iam_role.backup_role.arn
+  value       = var.enable_backup ? aws_iam_role.backup_role[0].arn : null
 }
 
 ########################################################
@@ -167,7 +167,7 @@ output "config" {
     # Infrastructure
     POSTGRES_SECURITY_GROUP_ID    = aws_security_group.postgres.id
     POSTGRES_PARAMETER_GROUP_NAME = aws_rds_cluster_parameter_group.postgres.name
-    POSTGRES_BACKUP_VAULT_NAME    = aws_backup_vault.postgres.name
+    POSTGRES_BACKUP_VAULT_NAME    = var.enable_backup ? aws_backup_vault.postgres[0].name : null
     POSTGRES_SNS_TOPIC_ARN        = aws_sns_topic.postgres_events.arn
   }
 }

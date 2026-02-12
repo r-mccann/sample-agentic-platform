@@ -27,7 +27,8 @@ resource "aws_iam_role_policy_attachment" "rds_monitoring_policy" {
 
 # IAM Role for AWS Backup - simplified name
 resource "aws_iam_role" "backup_role" {
-  name = "${var.name_prefix}backup-role"
+  count = var.enable_backup ? 1 : 0
+  name  = "${var.name_prefix}backup-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -47,8 +48,9 @@ resource "aws_iam_role" "backup_role" {
 
 # Attach AWS Backup service role policy
 resource "aws_iam_role_policy_attachment" "backup_policy" {
+  count      = var.enable_backup ? 1 : 0
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
-  role       = aws_iam_role.backup_role.name
+  role       = aws_iam_role.backup_role[0].name
 }
 
 # IAM policy for RDS IAM authentication

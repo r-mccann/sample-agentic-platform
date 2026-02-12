@@ -141,6 +141,12 @@ variable "postgres_deletion_protection" {
   default     = false
 }
 
+variable "postgres_enable_backup" {
+  description = "Enable AWS Backup for PostgreSQL cluster. Set to false if SCPs block backup vault creation."
+  type        = bool
+  default     = true
+}
+
 variable "bastion_security_group_ids" {
   description = "List of bastion security group IDs that need access to PostgreSQL"
   type        = list(string)

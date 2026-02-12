@@ -155,6 +155,7 @@ module "postgres_aurora" {
   instance_class               = var.postgres_instance_class
   postgres_deletion_protection = var.postgres_deletion_protection
   postgres_iam_username        = var.postgres_iam_username
+  enable_backup                = var.postgres_enable_backup
 
   # KMS encryption - passed in as variables
   enable_kms_encryption = var.enable_kms_encryption

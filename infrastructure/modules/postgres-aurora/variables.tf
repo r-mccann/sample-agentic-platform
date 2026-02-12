@@ -93,6 +93,16 @@ variable "kms_key_id" {
 }
 
 ########################################################
+# Backup Variables
+########################################################
+
+variable "enable_backup" {
+  description = "Enable AWS Backup vault, plan, and selection for the PostgreSQL cluster"
+  type        = bool
+  default     = true
+}
+
+########################################################
 # IAM Variables
 ########################################################
 
